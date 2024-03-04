@@ -1,19 +1,32 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cadastro</title>
+    <script src="https://kit.fontawesome.com/d7273a6c7a.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/cadastro.css' %}">
+    <title>Cadastro</title>
 </head>
 <body>
     
-    <div class="form">
+    <div class="wrapper">
         <form action="{% url 'cadastro' %}" method="POST">{% csrf_token %}
-            <input type="text" placeholder="Username..." name="username">
-            <br>
-            <input type="password" placeholder="Senha..." name="password">
-            <br>
-            <input type="submit" value="cadastrar">
+            <h1>Cadastro</h1>
+            <div class="input-box">
+                <input type="text" placeholder="Username..." name="username">
+                <i class="fa-solid fa-user"></i>
+            </div>
+
+            <div class="input-box">
+                <input type="password" placeholder="Senha..." name="password">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+
+            <div class="submit-btn">
+                <input type="submit" value="Criar">
+            </div>
         </form>
     </div>
 

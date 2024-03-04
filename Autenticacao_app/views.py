@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-# from Autenticacao_app.models import User
+# from autenticacao_app.models import User
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_django
@@ -21,7 +21,7 @@ def user_cadastro(request):
         user = User.objects.create_user(username=username, password=password)
         user.save()
 
-        return HttpResponse('Usuário cadastrado com sucesso.')
+        return redirect('login')
         
 def user_login(request):
 
@@ -36,10 +36,10 @@ def user_login(request):
         if user:
             login_django(request, user)
 
-            return HttpResponse('Autenticado')
+            return redirect('home')
         else:
-            return HttpResponse('Usuário não encontrado')
+            return redirect('/login/')
 
 @login_required(login_url='/auth/login')
 def home(request):
-    return HttpResponse('Home ^^')
+    return render(request, 'home.html')
