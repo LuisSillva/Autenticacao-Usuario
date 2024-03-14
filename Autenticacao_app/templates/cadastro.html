@@ -14,6 +14,18 @@
     <div class="wrapper">
         <form action="{% url 'cadastro' %}" method="POST">{% csrf_token %}
             <h1>Cadastro</h1>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        {% if message.tags == 'error' %}
+                            <li style="font-size: 15px; color: darkred; font-weight: bold; text-align: center; list-style-type: none;">{{ message }}</li>
+                        {% endif %}
+                        {% if message.tags == 'success' %}
+                            <li style="font-size: 15px; color: green; font-weight: bold; text-align: center; list-style-type: none;">{{ message }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
             <div class="input-box">
                 <input type="text" placeholder="Username..." name="username">
                 <i class="fa-solid fa-user"></i>
@@ -26,6 +38,10 @@
 
             <div class="submit-btn">
                 <input type="submit" value="Criar">
+            </div>
+
+            <div class='login'>
+                <span style='margin-left: 10px'>Já possui uma conta?  <a href='/auth/login/'>Login</a>
             </div>
         </form>
     </div>

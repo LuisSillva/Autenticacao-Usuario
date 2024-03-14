@@ -13,16 +13,31 @@
 <body>    
 
     <div class='wrapper'>
-        
+
         <form action="{% url 'login' %}" method="POST">{% csrf_token %}
             <h1>Login</h1>
+            
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li style="font-size: 15px; color: darkred; font-weight: bold; text-align: center; list-style-type: none;">{{ message }}
+                        {% comment %} {% if message.tags == 'error' %}
+                            <li style="font-size: 15px; color: darkred; font-weight: bold; text-align: center; list-style-type: none;">{{ message }}</li>
+                        {% endif %} {% endcomment %}
+                        {% if message.tags == 'success' %}
+                            <li style="font-size: 15px; color: green; font-weight: bold; text-align: center; list-style-type: none;">{{ message }}</li>
+                        {% endif %} 
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            
             <div class="input-box">
-                <input type="text" placeholder="Username..." name="username">
+                <input type="text" placeholder=" Username..." name="username">
                 <i class="fa-solid fa-user"></i>
             </div>
 
             <div class="input-box">
-                <input type="password" placeholder="Senha..." name="password">
+                <input type="password" placeholder=" Senha..." name="password">
                 <i class="fa-solid fa-lock"></i>
             </div>
 
@@ -30,6 +45,9 @@
                 <input type="submit" value="Entrar">
             </div>
 
+            <div class='cadastro'>
+                <span style='margin-left: 10px'>Não tem uma conta?  <a href='/auth/cadastro/'>Registre-se</a>
+            </div>
         </form>
     </div>
 </body>
