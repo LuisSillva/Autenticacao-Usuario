@@ -127,3 +127,12 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# from django.contrib.messages import constants
+# MESSAGE_TAGS = {
+#     constants.DEBUG:'primary',
+#     constants.ERROR:'danger',
+#     constants.INFO:'info',
+#     constants.SUCCESS:'success',
+#     constants.WARNING:'warning',
+# }

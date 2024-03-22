@@ -39,9 +39,8 @@ def user_login(request):
     if request.method == 'GET':
         return render(request, 'login.html')
 
-    else:
+    elif request.method == 'POST':
         
-
         username = request.POST.get('username')
         password = request.POST.get('password')
 
@@ -50,10 +49,8 @@ def user_login(request):
             login_django(request, user)
             return redirect('home')
         else:
-            messages.error(request, 'Credenciais incorretas', extra_tags='login_error')
-            print(messages.get_messages(request))
+            messages.error(request, 'Credenciais incorretas')
             return redirect('/auth/login')
-            
             
 def user_signout(request):
     pass

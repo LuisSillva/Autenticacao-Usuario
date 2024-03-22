@@ -13,24 +13,19 @@
 <body>    
 
     <div class='wrapper'>
-
         <form action="{% url 'login' %}" method="POST">{% csrf_token %}
             <h1>Login</h1>
-            
             {% if messages %}
                 <ul class="messages">
                     {% for message in messages %}
-                        <li style="font-size: 15px; color: darkred; font-weight: bold; text-align: center; list-style-type: none;">{{ message }}
-                        {% comment %} {% if message.tags == 'error' %}
+                        {% if message.tags == 'error' %}
                             <li style="font-size: 15px; color: darkred; font-weight: bold; text-align: center; list-style-type: none;">{{ message }}</li>
-                        {% endif %} {% endcomment %}
-                        {% if message.tags == 'success' %}
+                        {% elif message.tags == 'success' %}
                             <li style="font-size: 15px; color: green; font-weight: bold; text-align: center; list-style-type: none;">{{ message }}</li>
-                        {% endif %} 
+                        {% endif %}
                     {% endfor %}
                 </ul>
             {% endif %}
-            
             <div class="input-box">
                 <input type="text" placeholder=" Username..." name="username">
                 <i class="fa-solid fa-user"></i>

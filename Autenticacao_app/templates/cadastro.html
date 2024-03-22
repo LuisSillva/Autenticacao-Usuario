@@ -17,10 +17,10 @@
             {% if messages %}
                 <ul class="messages">
                     {% for message in messages %}
+                        <p>{{message}}<p>
                         {% if message.tags == 'error' %}
                             <li style="font-size: 15px; color: darkred; font-weight: bold; text-align: center; list-style-type: none;">{{ message }}</li>
-                        {% endif %}
-                        {% if message.tags == 'success' %}
+                        {% elif message.tags == 'success' %}
                             <li style="font-size: 15px; color: green; font-weight: bold; text-align: center; list-style-type: none;">{{ message }}</li>
                         {% endif %}
                     {% endfor %}
