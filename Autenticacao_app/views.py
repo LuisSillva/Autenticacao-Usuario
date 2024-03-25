@@ -2,8 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 # from autenticacao_app.models import User
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
-from django.contrib.auth import login as login_django
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
@@ -15,8 +14,13 @@ def user_cadastro(request):
     
     else:
         username = request.POST.get('username')
+        email = request.POST.get('email')
         password = request.POST.get('password')
 
+        if User.objects.filter(email=email):
+            messages.error(request, 'Email já cadastrado.')
+            return redirect('cadastro')
+        
         if User.objects.filter(username=username):
             messages.error(request, 'Usuário já cadastrado!')
             return redirect('cadastro')
@@ -29,7 +33,7 @@ def user_cadastro(request):
             messages.error(request, 'O nome de usuário não pode conter apenas números.')
             return redirect('cadastro')
 
-        user = User.objects.create_user(username=username, password=password)
+        user = User.objects.create_user(username=username, email=email, password=password)
         user.save()
 
         messages.success(request, 'Cadastro concluído com sucesso.')
@@ -42,18 +46,21 @@ def user_login(request):
     elif request.method == 'POST':
         
         username = request.POST.get('username')
+        email = request.POST.get('email')
         password = request.POST.get('password')
 
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, username=username, email=email, password=password)
         if user is not None:
-            login_django(request, user)
+            login(request, user)
             return redirect('home')
         else:
             messages.error(request, 'Credenciais incorretas')
             return redirect('/auth/login')
             
 def user_signout(request):
-    pass
+    logout(request)
+    messages.success(request, 'Logged out Successfully.')
+    return redirect('login')
 
 @login_required(login_url='/auth/login')
 def home(request):

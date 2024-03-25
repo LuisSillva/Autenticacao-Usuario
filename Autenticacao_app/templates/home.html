@@ -11,5 +11,13 @@
         UNDER CONSTRUCTION!!!
     </h1>
 
+    {% if user.is_authenticated %}
+        <h1 style='color: white;'>Logged as {{ user.username }}</h1>
+    {% endif %}
+    <button type='submit'>
+        <a href='signout'>Sign Out</a>
+    </button>
+    
+
 </body>
 </html>

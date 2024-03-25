@@ -17,7 +17,6 @@
             {% if messages %}
                 <ul class="messages">
                     {% for message in messages %}
-                        <p>{{message}}<p>
                         {% if message.tags == 'error' %}
                             <li style="font-size: 15px; color: darkred; font-weight: bold; text-align: center; list-style-type: none;">{{ message }}</li>
                         {% elif message.tags == 'success' %}
@@ -26,6 +25,11 @@
                     {% endfor %}
                 </ul>
             {% endif %}
+            <div class="input-box">
+                <input type='email' placeholder='Email...' name='email'> 
+                <i class="fa-solid fa-envelope"></i>
+            </div>
+
             <div class="input-box">
                 <input type="text" placeholder="Username..." name="username">
                 <i class="fa-solid fa-user"></i>
