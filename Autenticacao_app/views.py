@@ -14,12 +14,7 @@ def user_cadastro(request):
     
     else:
         username = request.POST.get('username')
-        email = request.POST.get('email')
         password = request.POST.get('password')
-
-        if User.objects.filter(email=email):
-            messages.error(request, 'Email já cadastrado.')
-            return redirect('cadastro')
         
         if User.objects.filter(username=username):
             messages.error(request, 'Usuário já cadastrado!')
@@ -33,7 +28,7 @@ def user_cadastro(request):
             messages.error(request, 'O nome de usuário não pode conter apenas números.')
             return redirect('cadastro')
 
-        user = User.objects.create_user(username=username, email=email, password=password)
+        user = User.objects.create_user(username=username, password=password)
         user.save()
 
         messages.success(request, 'Cadastro concluído com sucesso.')
@@ -46,10 +41,9 @@ def user_login(request):
     elif request.method == 'POST':
         
         username = request.POST.get('username')
-        email = request.POST.get('email')
         password = request.POST.get('password')
 
-        user = authenticate(request, username=username, email=email, password=password)
+        user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
             return redirect('home')
