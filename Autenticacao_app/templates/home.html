@@ -12,12 +12,13 @@
     </h1>
 
     {% if user.is_authenticated %}
-        <h1 style='color: white;'>Logged as {{ user.username }}</h1>
+        <h1 style='color: white;'>Logado como: {{ user.username }}</h1>
     {% endif %}
     <button type='submit'>
-        <a href='signout'>Sign Out</a>
+        <a href='signout'>Sair</a>
     </button>
     
+    <a href='{% url "password_change" %}'>Trocar senha?</a>
 
 </body>
 </html>

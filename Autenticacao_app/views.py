@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.mail import send_mail
+from decouple import config
 
 
 def user_cadastro(request):
@@ -13,16 +15,16 @@ def user_cadastro(request):
         return render(request, 'cadastro.html')
     
     else:
+        email = request.POST.get('email')
         username = request.POST.get('username')
         password = request.POST.get('password')
-        email = request.POST.get('email')
-        
-        if User.objects.filter(username=username):
-            messages.error(request, 'Usuário já cadastrado!')
-            return redirect('cadastro')
         
         if User.objects.filter(email=email):
             messages.error(request, 'Email já cadastrado!')
+            return redirect('cadastro')
+
+        if User.objects.filter(username=username):
+            messages.error(request, 'Usuário já cadastrado!')
             return redirect('cadastro')
 
         if len(username)>10:
@@ -65,5 +67,20 @@ def user_signout(request):
 def home(request):
     return render(request, 'home.html')
 
+@login_required
+def password_change(request):
+    user = request.user
+    form = SetPasswordForm(user)
+    return render(request, 'password_reset_confirm.html', {form: form})
+
+@login_required
 def envia_email(request):
-    return HttpResponse('Vai tomar no cu')
+    user = request.user
+    user_email = user.email
+    send_mail('Assunto', 
+            'Mensagem', 
+            config('EMAIL_HOST_USER'),
+            [user_email],
+            
+        )
+    return HttpResponse(f'Seu email é: {user_email}')

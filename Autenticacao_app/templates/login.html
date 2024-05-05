@@ -45,15 +45,15 @@
                 <input type="submit" value="Entrar">
             </div>
 
-            <div class='cadastro'>
+            {% comment %} <div class='cadastro'>
                 {% for message in messages %}
                     {% if message.tags == 'error' %}
                         <span style='margin-left: 10px; font-weight: 400; text-decoration: none;'>Esqueceu sua senha? <a href='{% url "password_reset" %}'>Recupere-a</a>
                     {% endif %}
                 {% endfor %}
-                <br>
+                <br> {% endcomment %}
                 <span style='margin-left: 10px; font-weight: 400; text-decoration: none;'>Não tem uma conta?  <a href='/auth/cadastro/'>Registre-se</a>
-            </div>
+            {% comment %} </div> {% endcomment %}
         </form>
     </div>
 </body>
